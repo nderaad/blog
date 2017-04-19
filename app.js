@@ -80,9 +80,22 @@ app.post("/blogs",function(req,res){
 });
 
 ///==================================================///
+// SHOW
+///==================================================///
+app.get("/blogs/:id", function(req,res){
+  Blog.findById({_id:req.params.id}, function(err,blog){
+    if(err){
+      throw(err);
+    } else {
+      res.render("show",{blog:blog});
+    }
+  });
+});
+
+///==================================================///
 // EDIT
 ///==================================================///
-app.get("/dogs/:id/edit", function(req,res){
+app.get("/blogs/:id/edit", function(req,res){
   res.render("edit");
 });
 
