@@ -41,6 +41,10 @@ app.get("/",function(req,res){
   res.redirect("/blogs");
 });
 
+///==================================================///
+// INDEX
+///==================================================///
+
 app.get("/blogs",function(req,res){
   Blog.find({}, function(err, blogs){
     if(err){
@@ -51,25 +55,40 @@ app.get("/blogs",function(req,res){
   });
 });
 
+///==================================================///
+// NEW
+///==================================================///
+
 app.get("/blogs/new",function(req,res){
   res.render("new");
 });
 
+///==================================================///
+// CREATE
+///==================================================///
 app.post("/blogs",function(req,res){
-  var title = req.body.title;
-  var image = req.body.image;
-  var body = req.body.body;
-  var created = req.body.created;
-  var newBlog = {title: title, image: image, body: body, created: created};
-  Blog.create({newBlog},function(err, blog){
+  // Because we set name of each input to 'blog[something]' req.body.blog
+  // will pull all of the inputs w/name starting w/blog
+  Blog.create(req.body.blog,function(err, blog){
     if(err){
       throw(err);
     } else{
       console.log(blog);
     }
   });
-  res.redirect("index");
+  res.redirect("/blogs");
 });
+
+///==================================================///
+// EDIT
+///==================================================///
+app.get("/dogs/:id/edit", function(req,res){
+  res.render("edit");
+});
+
+///==================================================///
+// PORT
+///==================================================///
 
 app.listen(3000, function(){
   console.log("Listening on port 3000");
