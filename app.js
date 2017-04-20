@@ -73,7 +73,7 @@ app.get("/blogs/new",function(req,res){
 app.post("/blogs",function(req,res){
   //the below line sanitizes whatever the user inputs into
   // the body (i.e. removes malicious code) which is important
-  //  since we're using "<%-" for the text body
+  // since we're using "<%-" for the text body
   req.body.blog.body = req.sanitize(req.body.blog.body)
   // Because we set name of each input to 'blog[something]' req.body.blog
   // will pull all of the inputs w/name starting w/blog
