@@ -1,9 +1,24 @@
 <% include partials/header %>
 <div class="ui main text container segment">
   <div class="ui huge header"><%= blog.title %></div>
-  <img src="<%=blog.image%>">
-  <span> <%=blog.created%></span>
-  <p><%= blog.body %></p>
+  <div class="ui top attached">
+    <div class="item">
+      <img class="ui centered rounded image" src="<%=blog.image%>">
+        <div class="content">
+          <span><%= blog.created.toDateString()%></span>
+        </div>
+        <div class="description">
+          <!-- using the %- below instead of %= will allow
+           users to enter html and ejs will render it for
+           us instead of just accepting it as a string -->
+          <p><%-blog.body%></p>
+        </div>
+        <a class="ui orange basic button" href="/blogs/<%=blog._id%>/edit">Edit</a>
+        <form id="delete" method="POST" action="/blogs/<%=blog._id%>?_method=DELETE">
+          <button class="ui red basic button">Delete</button>
+        </form>
+    </div>
+  </div>
 </div>
 
 <% include partials/footer %>
